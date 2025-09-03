@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Plant & Crop Disease Identification</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <style>
+        .hero {
+            background: black url(static/images/bg.jpeg) center / cover;
+        }
+    </style>
+</head>
+
+<body>
+<section class="hero is-fullheight">
+    <section class="section">
+        <div class="container">
+            <h1 class="title" style="font-size:2.5rem">
+                Plant & Crop Disease Identification using CNN-MODEL
+            </h1>
+            <p class="subsubtitle">
+                by <strong>Python</strong>
+            </p>
+        </div>
+    </section>
+
+    <div class="columns">
+        <div class="column is-one-third has-text-centered">
+            <img class="pred_img" src="{{ url_for('send_file', filename=image_file_name)}}" alt="Predicted Image"/>
+        </div>
+
+        <div class="column is-one-quarter" style="font-size:2.0rem">
+            <h2 id="pred" style="color:white">
+                This is a <span style="font-weight: bold; color:whitesmoke;">{{ label }}</span>
+            </h2>
+
+            <h2 style="font-size: 1.75rem">
+                Confidence: <span style="font-weight: bold; color:whitesmoke;">{{ prob }}</span>
+            </h2>
+
+            <!-- Display label details based on the predicted label -->
+            <div id="labelDetails" style="color:white; margin-top: 20px;">
+               
+
+                <!-- ===== Crop Disease Labels ===== -->
+                {% if label == 'Apple___Apple_scab' %}
+                    <p><b>SYMPTOMS:</b> Olive-green to brown velvety spots on leaves/fruit, premature leaf drop.</p>
+                    <p><b>SUGGESTIONS:</b> Use resistant varieties, remove fallen leaves, apply fungicides (captan, mancozeb, sulfur).</p>
+                {% elif label == 'Apple___Black_rot' %}
+                    <p><b>SYMPTOMS:</b> Dark concentric leaf spots, shriveled black fruits, branch cankers.</p>
+                    <p><b>SUGGESTIONS:</b> Prune infected twigs & fruits, keep orchard clean, apply copper/captan sprays.</p>
+                {% elif label == 'Apple___Cedar_apple_rust' %}
+                    <p><b>SYMPTOMS:</b> Yellow-orange spots on apple leaves, jelly-like galls on nearby junipers.</p>
+                    <p><b>SUGGESTIONS:</b> Remove junipers near orchards, apply fungicides in spring, plant resistant apple varieties.</p>
+                {% elif label == 'Apple___Healthy' %}
+                    <p><b>SYMPTOMS:</b> No disease detected, healthy foliage and fruits.</p>
+                    <p><b>SUGGESTIONS:</b> Maintain orchard sanitation, balanced nutrients, and regular monitoring.</p>
+                {% elif label == 'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot' %}
+                    <p><b>SYMPTOMS:</b> Long rectangular gray/brown lesions on maize leaves.</p>
+                    <p><b>SUGGESTIONS:</b> Rotate crops, use resistant hybrids, apply fungicides if severe.</p>
+                {% elif label == 'Corn_(maize)___Northern_Leaf_Blight' %}
+                    <p><b>SYMPTOMS:</b> Large cigar-shaped gray-green lesions on maize leaves.</p>
+                    <p><b>SUGGESTIONS:</b> Use resistant hybrids, rotate crops, fungicides at tasseling if needed.</p>
+                {% elif label == 'Grape___Black_rot' %}
+                    <p><b>SYMPTOMS:</b> Brown spots on leaves, shriveled black fruits (“mummies”).</p>
+                    <p><b>SUGGESTIONS:</b> Remove infected berries, prune vines, apply fungicides (mancozeb, captan).</p>
+
+                {% else %}
+                    <p><b>WET-STATE-USES:</b> Data not available</p>
+                    <p><b>DRY-STATE-USES:</b> Data not available</p>
+                {% endif %}
+            </div>
+
+            <br>
+            <a href="/" class="button is-black is-inverted is-outlined" style="font-size:1.25rem">Back to Home</a>
+        </div>
+    </div>
+</section>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
